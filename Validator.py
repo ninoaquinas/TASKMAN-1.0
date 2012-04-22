@@ -40,6 +40,8 @@ class ModerateValidatorStrategy(ValidatorStrategy):
 			data["message"] += "\n -You need to change the task name (cannot be blank or \" untitled \" "
 		if (data[TASK_CATEGORY] == ""):
 			data["message"] += "\n -You need to specify the task category"
+		if (data[TASK_PROGRESS] == "100%"):
+			data["message"] += "\n -You are not supposed to add completed taks"
 		if (data[TASK_MILESTONE] == list()):
 			data["message"] += "\n -You need to have at least 1 milestone"
 		else:

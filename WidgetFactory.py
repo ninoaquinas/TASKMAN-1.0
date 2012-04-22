@@ -754,7 +754,7 @@ class SortButtonWidget:
 		self.nameSort.Bind (wx.EVT_BUTTON, self.onNameSort)
 
 		#putting to the sizer
-		self.sortText = wx.StaticText(self.panel, wx.ID_ANY, label="Sort Order By Field", style=wx.TE_READONLY)	
+		self.sortText = wx.StaticText(self.panel, wx.ID_ANY, label="Sort task By Field", style=wx.TE_READONLY)	
 		self.sortButtonSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.sortButtonSizer.Add(self.postDateSort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
 		self.sortButtonSizer.Add(self.dueDateSort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
