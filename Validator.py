@@ -46,7 +46,14 @@ class ModerateValidatorStrategy(ValidatorStrategy):
 			data["message"] += "\n -You need to have at least 1 milestone"
 		else:
 			for i in range(len(data[TASK_MILESTONE])):
-				weight = int(data[TASK_MILESTONE][i][MILESTONE_WEIGHT])
+				weight = None
+				try:
+					weight = int(data[TASK_MILESTONE][i][MILESTONE_WEIGHT])
+				except ValueError:
+					pass
+				if(weight == None):
+					data["message"] += "\n -Your milestone weight need to be an integer between 0 and 100"
+					break
 				if(weight<0 or weight>=100):
 					data["message"] += "\n -Your milestone weight must be between 0 and 100"
 					break

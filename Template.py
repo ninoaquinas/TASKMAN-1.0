@@ -173,8 +173,14 @@ class Template:
 		for i in range(len(milestone)):
 			if(milestone[i].has_key(MILESTONE_CHECKED)):
 				if (milestone[i][MILESTONE_CHECKED]):
-					progress += int(milestone[i][MILESTONE_WEIGHT])
-			total += int(milestone[i][MILESTONE_WEIGHT])
+					try:
+						progress += int(milestone[i][MILESTONE_WEIGHT])
+					except ValueError:
+						return "not int"
+			try:
+				total += int(milestone[i][MILESTONE_WEIGHT])
+			except ValueError:
+				return "not int"
 		if(total > 0):
 			val = progress*100/total
 		else:
