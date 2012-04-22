@@ -398,6 +398,8 @@ class AddTaskDuedateWidget:
 
 	def getValue(self):
 		wxdate =  self.calendar.GetDate()
+		if(wxdate.Year < 1900):
+			wxdate.Year = 1900
 		date = datetime(year=wxdate.Year, day=wxdate.Day, month=wxdate.Month+1, minute=self.minuteCtrl.GetValue(), hour=self.hourCtrl.GetValue())
 		return date
 
