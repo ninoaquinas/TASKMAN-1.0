@@ -32,17 +32,13 @@ class LoginMediator(AbstractMediator):
 	__global = None
 
 	def __init__(self,parent):
-		if LoginMediator.__instance != None:
-			raise Exception("This class is a singleton!")
-		else:
-			LoginMediator.__instance = self
-			self.parent = parent
-			self.__global = FactoryMediator.getMediator(None,"Global")
+		LoginMediator.__instance = self
+		self.parent = parent
+		self.__global = FactoryMediator.getMediator(None,"Global")
 
 	@staticmethod
 	def getInstance(parent):
-		if LoginMediator.__instance == None:
-			LoginMediator(parent)
+		LoginMediator(parent)
 		return LoginMediator.__instance 	
 
 	def response(self,command):
@@ -115,17 +111,13 @@ class CompleteTaskMediator(AbstractMediator):
 	__instance = None
 	__global = None
 	def __init__(self,parent):
-		if CompleteTaskMediator.__instance != None:
-			raise Exception("This class is a singleton!")
-		else:
-			CompleteTaskMediator.__instance = self
-			self.parent = parent
-			self.__global = FactoryMediator.getMediator(None,"Global")
+		CompleteTaskMediator.__instance = self
+		self.parent = parent
+		self.__global = FactoryMediator.getMediator(None,"Global")
 
 	@staticmethod
 	def getInstance(parent):
-		if CompleteTaskMediator.__instance == None:
-			CompleteTaskMediator(parent)
+		CompleteTaskMediator(parent)
 		return CompleteTaskMediator.__instance 	
 
 	def response(self,command):
@@ -153,17 +145,13 @@ class MainTaskMediator(AbstractMediator):
 	__instance = None
 	__global = None
 	def __init__(self,parent):
-		if MainTaskMediator.__instance != None:
-			raise Exception("This class is a singleton!")
-		else:
-			MainTaskMediator.__instance = self
-			self.parent = parent
-			self.__global = FactoryMediator.getMediator(None,"Global")
+		MainTaskMediator.__instance = self
+		self.parent = parent
+		self.__global = FactoryMediator.getMediator(None,"Global")
 
 	@staticmethod
 	def getInstance(parent):
-		if MainTaskMediator.__instance == None:
-			MainTaskMediator(parent)
+		MainTaskMediator(parent)
 		return MainTaskMediator.__instance 	
 
 	def response(self,command):
