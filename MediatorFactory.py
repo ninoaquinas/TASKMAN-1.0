@@ -46,11 +46,11 @@ class LoginMediator(AbstractMediator):
 		print "Login Mediator",command["type"]
 		if command["type"] == "Login":
 			res = LoginManager.getInstance().checkUser(command["user"],command["password"])
-			if(res):
+			if(res==""):
 				self.__global.response(command)
 			else:
 				parent.init()
-				dialog = wx.MessageDialog(None,MESSAGE_LOGIN_FAILED, 'Login failed', wx.ICON_EXCLAMATION|wx.CENTER)
+				dialog = wx.MessageDialog(None,res, 'Login failed', wx.ICON_EXCLAMATION|wx.CENTER)
 				dialog.ShowModal()	
 		else:
 			pass

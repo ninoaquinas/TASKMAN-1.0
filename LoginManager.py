@@ -29,11 +29,19 @@ class LoginManager:
 		self.__holder.saveUser(self.__data)
 
 	def checkUser(self, user, password):
-		if(self.__data.has_key(user)==False):
+		if(user==""):
+			return MESSAGE_LOGIN_NO_USERNAME
+		elif(password == ""):
+			return MESSAGE_LOGIN_NO_PASSWORD
+		elif(user==password):
+			return MESSAGE_LOGIN_ERROR_EQUAL
+		elif(self.__data[user] != password):
+			return MESSAGE_LOGIN_WRONG_PASSWORD
+		elif(self.__data.has_key(user)==False):
 			self.__data[user] = password
 			self.save(self.__data)
-			return True	
+			return ""
 		elif(self.__data[user] == password):
-			return True
+			return ""
 		else:
-			return False
+			return MESSAGE_LOGIN_ERROR
