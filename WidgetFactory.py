@@ -58,7 +58,7 @@ class CompleteTaskWidgetFactory(AbstractWidget):
 	@staticmethod
 	def getWidget(widget,parent,mediator):
 		if widget == "TaskListBox":
-			return TaskListBoxWidget(parent,mediator)
+			return TaskCompleteListBoxWidget(parent,mediator)
 		elif widget == "SortButton":
 			return SortCompleteButtonWidget(parent,mediator)
 		elif widget == "MileStoneBox":
@@ -561,6 +561,69 @@ class EditTaskMilestoneBoxWidget:
 				rowdata[MILESTONE_CHECKED] = False
 			data.append(rowdata)
 		return data
+
+class TaskCompleteListBoxWidget:
+	def __init__(self,parent,mediator):
+		self.panel = wx.Panel(parent)
+		self.mediator = mediator 
+		self.taskList = AutoWidthListCtrl(self.panel)
+		self.command = dict()
+
+		self.taskList.Bind(wx.EVT_LIST_ITEM_SELECTED,self.onSelect)
+		self.taskList.InsertColumn(0,"Task Name")
+		self.taskList.SetColumnWidth(0,140)
+		self.taskList.InsertColumn(1,"Start Date")
+		self.taskList.SetColumnWidth(1,140)
+		self.taskList.InsertColumn(2,"Priority")
+		self.taskList.SetColumnWidth(2,140)
+		self.taskList.InsertColumn(3,"Progress")
+		self.taskList.SetColumnWidth(3,140)
+		self.taskList.InsertColumn(4,"Category")
+		self.taskList.SetColumnWidth(4,140)
+		self.taskList.InsertColumn(5,"Due Date")
+		self.taskList.SetColumnWidth(5,140)
+
+		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.sizer.Add(self.taskList, 1, flag=wx.ALL|wx.EXPAND, border=2)
+
+		self.panel.SetSizer(self.sizer)			
+
+	def onSelect(self, event):
+		self.command["type"]="TaskSelect"
+		index = self.taskList.GetFocusedItem()
+		self.command["index"]=index
+		self.mediator.response(self.command)
+
+	def setValue(self, data):
+		TemplatePopulateCompleteTask().populate(self.taskList, data)
+
+	def setSelect(self, index):
+		self.taskList.Focus(index)
+
+	def onEditTask(self):
+		index = self.taskList.GetFocusedItem()
+		self.command["index"]=index
+		self.command["type"]="EditTask2"
+		self.mediator.response(self.command)	
+
+	def onUpdateTask(self,command):
+		index = self.taskList.GetFocusedItem()
+		command["index"]=index
+		command["type"]="UpdateTask3"
+		self.mediator.response(command)	
+	
+	def onCopyTask(self):
+		index = self.taskList.GetFocusedItem()
+		self.command["index"]=index
+		self.command["type"]="CopyTask2"
+		self.mediator.response(self.command)	
+
+	def onRemoveTask(self):
+		index = self.taskList.GetFocusedItem()
+		self.command["index"]=index
+		self.command["type"]="RemoveTask2"
+		self.mediator.response(self.command)	
+
 
 class TaskListBoxWidget:
 	def __init__(self,parent,mediator):

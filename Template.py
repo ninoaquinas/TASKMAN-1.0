@@ -18,6 +18,15 @@ class TemplatePopulate:
 			"""
 			box.SetItemData(i, i)
 
+class TemplatePopulateCompleteTask(TemplatePopulate):
+	def insertData(self,box,item,row):
+		box.InsertStringItem(row, item[TASK_NAME])
+		box.SetStringItem(row,TASK_POSTDATE_INDEX,item[TASK_POSTDATE]) 
+		box.SetStringItem(row,TASK_PRIORITY_INDEX,item[TASK_PRIORITY]) 
+		box.SetStringItem(row,TASK_PROGRESS_INDEX,item[TASK_PROGRESS]) 
+		box.SetStringItem(row,TASK_CATEGORY_INDEX,item[TASK_CATEGORY]) 
+		box.SetStringItem(row,TASK_DUEDATE_INDEX,item[TASK_DUEDATE]) 
+			
 class TemplatePopulateTask(TemplatePopulate):
 	def insertData(self,box,item,row):
 		box.InsertStringItem(row, item[TASK_NAME])
