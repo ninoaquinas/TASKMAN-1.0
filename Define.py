@@ -10,7 +10,15 @@ TASK_PRIORITY = "task_priority"
 TASK_PROGRESS = "task_progress"
 TASK_CATEGORY = "task_category"
 TASK_DUEDATE = "task_duedate"
+TASK_FINISHDATE = "task_finishdate"
 TASK_MILESTONE = "task_milestone"
+TASK_STATUS = "task_status"
+
+TASK_STATUS_NORMAL = "normal"
+TASK_STATUS_WEEK = "week"
+TASK_STATUS_DAY = "day"
+TASK_STATUS_HOUR = "hour"
+TASK_STATUS_OVERDUE = "overdue"
 
 TASK_NAME_INDEX = 0 
 TASK_POSTDATE_INDEX = 1 
@@ -30,6 +38,7 @@ MILESTONE_NAME_INDEX = 0
 MILESTONE_WEIGHT_INDEX = 1
 MILESTONE_DETAILS_INDEX = 2
 
+
 #configuration file
 SAVE_STRATEGY = "pickle"
 FILE_NAME = "taskman.dat"
@@ -47,3 +56,13 @@ MESSAGE_LOGIN_ERROR_EQUAL = "Hey there, please be more creative.\n differs your 
 MESSAGE_LOGIN_ERROR = "Sorry, we are not so sure what is happening now. \nPlease report this bug if you find it"
 MESSAGE_LOGOUT = "Are you sure you want to logout?"
 MESSAGE_NO_COMPLETE_TASK = "There is no completed task yet"
+
+TASK_STATUS_WEEK_COLOR = "YELLOW"
+TASK_STATUS_DAY_COLOR = "ORANGE"
+TASK_STATUS_HOUR_COLOR = "ORANGE RED"
+TASK_STATUS_OVERDUE_COLOR = "RED"
+
+TASK_STATUS_WEEK_CRITERIA = 7*24*60
+TASK_STATUS_DAY_CRITERIA = 24*60 
+TASK_STATUS_HOUR_CRITERIA = 60
+

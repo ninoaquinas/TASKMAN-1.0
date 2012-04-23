@@ -202,7 +202,8 @@ class MainTaskMediator(AbstractMediator):
 					main.data[TASK_DONE] = list()
 				dialog = wx.MessageDialog(None,MESSAGE_TASK_DONE, 'Task done',wx.YES_NO | wx.NO_DEFAULT | wx.ICON_INFORMATION)
 				decision = dialog.ShowModal()
-				if(decision):
+				if(decision == wx.ID_YES):
+					main.data[USER_DATA][command["index"]][TASK_FINISHDATE] = TemplateDate.now()
 					main.data[TASK_DONE].append(main.data[USER_DATA][command["index"]])
 					del(main.data[USER_DATA][command["index"]])
 			command["type"] = "SaveAll"

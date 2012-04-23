@@ -26,6 +26,20 @@ class TemplatePopulateTask(TemplatePopulate):
 		box.SetStringItem(row,TASK_PROGRESS_INDEX,item[TASK_PROGRESS]) 
 		box.SetStringItem(row,TASK_CATEGORY_INDEX,item[TASK_CATEGORY]) 
 		box.SetStringItem(row,TASK_DUEDATE_INDEX,item[TASK_DUEDATE]) 
+		if(item.has_key(TASK_STATUS)):
+			if( item[TASK_STATUS] == TASK_STATUS_NORMAL):
+				pass
+			elif( item[TASK_STATUS] == TASK_STATUS_WEEK):
+				box.SetItemBackgroundColor(row, TASK_STATUS_WEEK_COLOR)
+			elif( item[TASK_STATUS] == TASK_STATUS_DAY):
+				box.SetItemBackgroundColor(row, TASK_STATUS_DAY_COLOR)
+			elif( item[TASK_STATUS] == TASK_STATUS_HOUR):
+				box.SetItemBackgroundColor(row, TASK_STATUS_HOUR_COLOR)
+			elif( item[TASK_STATUS] == TASK_STATUS_OVERDUE):
+				box.SetItemBackgroundColor(row, TASK_STATUS_OVERDUE_COLOR)
+			else:
+				pass
+			
 
 class TemplatePopulateMilestone(TemplatePopulate):
 	def insertData(self,box,item,row):
