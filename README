@@ -1,1 +1,27 @@
--Need to install wxPython first
+TASKMAN 1.0
+
+Objective : - To create a program that heavily implemented using design pattern
+			- To get a job in Quora
+			- (last but not least) To create a useful and cool program
+
+Installation: - Python and wxPython (must install wxPython)
+
+Description :
+- TASKMAN is a program that created to manage all the user task easily
+- in order to get started, just key in username and password. The program will create an account automatically if the username is not on the list
+- in TASKMAN, user able to specify the priority, category and the deadline for each task created
+- in additional, user also need to specify "milestone(s)" for every task they created
+- the task is considered complete, if and only if, the user has completed all the milestone for the respective task
+- the user able to specify the weight and details for every task milestone
+- the user will be able to keep track the progress of their task based on the completed milestone
+
+Features :
+- Able to create a more concrete task, with it's milestone concept
+- Able to customize the priority and category of the task
+- Able to copy, remove, edit or sort the task with ease
+- Able to track down the progress for each and every task
+- TASKMAN will always keep all the info about the completed task from user
+- Support multiple user in one machine, using simple username password authentication
+
+
+
