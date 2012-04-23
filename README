@@ -14,6 +14,7 @@ Description :
 - In TASKMAN, user is able to specify the priority, category and deadline for each task created
 - In addition, user also needs to specify "milestone(s)" for every task he/she created
 - User is able to specify weight and details for every task milestone
+- Weight of the milestone determine the significance level of this milestone to the task itself as compare to other milestone
 - User will be able to keep track of the task progress based on completed milestones
 - Task is considered complete, if and only if, the user has completed all milestones for the respective task
 - User is able to see the report of the task once it is completed
@@ -25,7 +26,7 @@ Features :
 - Able to track down the progress for each and every task
 - Able to keep all information about completed task from user
 - Able to support multiple users in one machine, using simple username password authentication
-- Able to highlight task with approaching deadline
+- Able to highlight task with approaching deadline (required to click update task)
 - Able to generate report of a completed task
 
 
