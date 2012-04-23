@@ -209,8 +209,9 @@ class MainTaskMediator(AbstractMediator):
 					del(main.data[USER_DATA][command["index"]])
 				else:
 					return
-			main.data[USER_DATA][command["index"]][TASK_PROGRESS] = value
-			main.data[USER_DATA][command["index"]][TASK_MILESTONE] = command["data"]
+			else:
+				main.data[USER_DATA][command["index"]][TASK_PROGRESS] = value
+				main.data[USER_DATA][command["index"]][TASK_MILESTONE] = command["data"]
 			command["type"] = "RefreshTask"
 			self.response(command)
 			command["type"] = "SaveAll"
