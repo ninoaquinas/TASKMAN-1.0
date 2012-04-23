@@ -62,7 +62,7 @@ class CompleteTaskWidgetFactory(AbstractWidget):
 		elif widget == "SortButton":
 			return SortCompleteButtonWidget(parent,mediator)
 		elif widget == "MileStoneBox":
-			return CompletedMileStoneBoxWidget(parent,mediator)
+			return MileStoneReportBoxWidget(parent,mediator)
 		elif widget == "CloseButton":
 			return CloseButtonWidget(parent,mediator)
 		else:
@@ -877,6 +877,26 @@ class CompletedMileStoneBoxWidget:
 
 	def setValue(self,data):
 		TemplatePopulateMilestone().populate(self.detailBox, data)
+
+class MileStoneReportBoxWidget:
+	def __init__(self,parent,mediator):
+		self.panel = wx.Panel(parent)
+		self.mediator = mediator
+		self.command = dict()
+
+		self.detailText = wx.StaticText(self.panel, wx.ID_ANY, label="Task Report", style=wx.TE_READONLY)
+		self.detailBox = wx.TextCtrl(self.panel, style=wx.TE_MULTILINE | wx.TE_READONLY | wx.ALIGN_CENTER)
+		font = wx.Font(12, wx.SWISS, wx.NORMAL, wx.NORMAL)
+		self.detailBox.SetFont(font)		
+
+		self.sizer = wx.BoxSizer(wx.VERTICAL)
+		self.sizer.Add(self.detailText, 0, flag=wx.ALL|wx.EXPAND, border=5)
+		self.sizer.Add(self.detailBox, 1, flag=wx.ALL|wx.EXPAND, border=5)
+		
+		self.panel.SetSizer(self.sizer)
+
+	def setValue(self,data):
+		self.detailBox.SetValue(data)
 
 class CheckListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
 	def __init__(self, parent):

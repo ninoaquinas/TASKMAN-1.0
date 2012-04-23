@@ -137,7 +137,7 @@ class CompleteTaskWindow:
 		self.dataHandler = DataManager.getInstance()
 		self.data = data
 		self.taskListBoxWidget.setValue(self.data)
-		self.mileStoneBoxWidget.setValue(list())
+		self.mileStoneBoxWidget.setValue("")
 
 	def destroy(self):  
 		self.panel.Destroy()

@@ -128,7 +128,7 @@ class CompleteTaskMediator(AbstractMediator):
 		elif command["type"] == "Close":
 			main.destroy()
 		elif command["type"] == "TaskSelect":
-			main.mileStoneBoxWidget.setValue(main.data[command["index"]][TASK_MILESTONE])		
+			main.mileStoneBoxWidget.setValue(Template.getMessage(main.data[command["index"]]))		
 		elif command["type"] == "TaskSort":
 			print "field type", command["field"]
 			main.mileStoneBoxWidget.setValue(list())
@@ -195,17 +195,22 @@ class MainTaskMediator(AbstractMediator):
 		elif command["type"] == "UpdateTask2":
 			main.taskListBoxWidget.onUpdateTask(command)
 		elif command["type"] == "UpdateTask3":
-			main.data[USER_DATA][command["index"]][TASK_PROGRESS] = str(command["progress"]) + "%"
-			main.data[USER_DATA][command["index"]][TASK_MILESTONE] = command["data"]
-			if(main.data[USER_DATA][command["index"]][TASK_PROGRESS]=="100%"):
+			value = str(command["progress"]) + "%"
+			if(value=="100%"):
 				if(main.data.has_key(TASK_DONE)==False):
 					main.data[TASK_DONE] = list()
 				dialog = wx.MessageDialog(None,MESSAGE_TASK_DONE, 'Task done',wx.YES_NO | wx.NO_DEFAULT | wx.ICON_INFORMATION)
 				decision = dialog.ShowModal()
 				if(decision == wx.ID_YES):
+					main.data[USER_DATA][command["index"]][TASK_PROGRESS] = value
+					main.data[USER_DATA][command["index"]][TASK_MILESTONE] = command["data"]
 					main.data[USER_DATA][command["index"]][TASK_FINISHDATE] = TemplateDate.now()
 					main.data[TASK_DONE].append(main.data[USER_DATA][command["index"]])
 					del(main.data[USER_DATA][command["index"]])
+				else:
+					return
+			main.data[USER_DATA][command["index"]][TASK_PROGRESS] = value
+			main.data[USER_DATA][command["index"]][TASK_MILESTONE] = command["data"]
 			command["type"] = "RefreshTask"
 			self.response(command)
 			command["type"] = "SaveAll"

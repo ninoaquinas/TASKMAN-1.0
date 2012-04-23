@@ -235,3 +235,46 @@ class Template:
 		else : 
 			value = data
 		return value
+
+	@staticmethod
+	def getMessage(data):
+		content = ""
+		content += "Task name : " + data[TASK_NAME] + "\n"
+		content += "Task category : " + data[TASK_CATEGORY] + "\n"
+		content += "Task importance : " + data[TASK_PRIORITY] + "\n"
+		content += "Time created : " + data[TASK_POSTDATE] + "\n"
+		content += "Task deadline : " + data[TASK_DUEDATE] + "\n\n"
+		content += "Task accomplished : " + data[TASK_FINISHDATE] + "\n"
+
+		if data[TASK_STATUS] == TASK_STATUS_NORMAL:
+			message = "Great job, you finished the task way ahead of time!"
+		elif data[TASK_STATUS] == TASK_STATUS_WEEK:
+			message = "Sweet, you able to finish the job with several days left"
+		elif data[TASK_STATUS] == TASK_STATUS_DAY:
+			message = "Good, the task delivered on time!"
+		elif data[TASK_STATUS] == TASK_STATUS_HOUR:
+			message = "Last minute completion. Well, at least you manage to complete the task before deadline"
+		elif data[TASK_STATUS] == TASK_STATUS_OVERDUE:
+			message = "Embarassing, you should plan your schedule better for upcoming task"
+
+		content += ( message + "\n\n")
+
+		totalWeight = 0	
+		for i in range(len(data[TASK_MILESTONE])):
+			totalWeight += int(data[TASK_MILESTONE][i][MILESTONE_WEIGHT])
+
+		content += "Additional details, " + "\n"
+		content += "Total Milestone created for this task :" + str(len(data[TASK_MILESTONE])) + "\n"		
+		content += "Total Milestone weight : " + str(totalWeight) + "\n\n"
+		content += "Milestone details : \n"
+
+		for i in range(len(data[TASK_MILESTONE])):
+			content += "\tMilestone no." + str(i+1) + "\n"
+			content += "Milestone name : " + data[TASK_MILESTONE][i][MILESTONE_NAME] + "\n" 
+			content += "Milestone weight  : " + data[TASK_MILESTONE][i][MILESTONE_WEIGHT] + "\n" 
+			sign = int(data[TASK_MILESTONE][i][MILESTONE_WEIGHT])*100/totalWeight
+			content += "Milestone significance : " + str(sign) + "%\n" 
+			content += "Milestone details : " + data[TASK_MILESTONE][i][MILESTONE_DETAILS] + "\n" 
+			content += "Milestone accomplished : " + data[TASK_MILESTONE][i][MILESTONE_FINISHDATE] + "\n\n" 
+
+		return content
