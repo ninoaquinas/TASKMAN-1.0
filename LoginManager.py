@@ -35,13 +35,13 @@ class LoginManager:
 			return MESSAGE_LOGIN_NO_PASSWORD
 		elif(user==password):
 			return MESSAGE_LOGIN_ERROR_EQUAL
-		elif(self.__data[user] != password):
-			return MESSAGE_LOGIN_WRONG_PASSWORD
 		elif(self.__data.has_key(user)==False):
 			self.__data[user] = password
 			self.save(self.__data)
 			return ""
 		elif(self.__data[user] == password):
 			return ""
+		elif(self.__data[user] != password):
+			return MESSAGE_LOGIN_WRONG_PASSWORD
 		else:
 			return MESSAGE_LOGIN_ERROR
