@@ -6,6 +6,8 @@ Objective : - To create a program that is heavily implemented using design patte
 
 Installation: - Python and wxPython (must install wxPython)
 
+How to use : - Simply extract the zip file, Install the files above and run clientMain.py
+
 Description :
 - TASKMAN is a program that is created to manage user task easily
 - In order to get started, just key in username and password. The program will create an account automatically if the username is not yet on the list
@@ -27,4 +29,15 @@ Features :
 - Able to generate report of a completed task
 
 
-
+Files Description
+- clientMain.py, File to run TASKMAN 1.0
+- DataFactory.py, class to handle save/load data to/from files (Implement strategy pattern).
+- DataManager.py, class to handle save/load request from program (behaves like proxy for DataFactory.py).
+- LoginManager.py, class to authenticate valid user and password to enter the program.
+- Validator.py, class to validate a task to fulfilled given rules (Implement strategy pattern)
+- Facade.py, class to provide a simplified interface for the program (Implement Facade pattern and singleton pattern)
+- WindowFactory.py, factory class to provide necessary window (Implement abstract factory method and factory method pattern).
+- WidgetFactory,py, factory class to provide necessary widget for window (Implement abstract factory method pattern and factory method pattern)
+- MediatorFactory.py, factory class to provide a Mediator, class that let every widget in window to communicate (Implement Factory Method Pattern, Mediator pattern and Chain of responsibility pattern).
+- Define.py, Configuration files and predefined constant.
+- Template.py, class that contain common function that being use throughout the program (implement Template Pattern).
