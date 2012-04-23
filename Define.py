@@ -46,16 +46,16 @@ FILE_PWD = "pwd.dat"
 VALIDATION_LEVEL = "moderate"
 
 MESSAGE_TASK_DONE = """Congratulations, you have completed the task!
-The task you have completed will be remove from the list
-Press yes to confirmed"""
+The task you have completed will be removed from the list.
+Press yes to confirm."""
 MESSAGE_REMOVE_TASK = "Are you sure you want to remove the task?"
-MESSAGE_LOGIN_WRONG_PASSWORD = "Sorry, the username is taken or \nyou had key in the wrong password"
-MESSAGE_LOGIN_NO_USERNAME = "Are you a human? \n you must have a name, right?"
+MESSAGE_LOGIN_WRONG_PASSWORD = "Sorry, the username is taken or \nyou had keyed in the wrong password"
+MESSAGE_LOGIN_NO_USERNAME = "Are you a human? \n You must have a name, don't you?"
 MESSAGE_LOGIN_NO_PASSWORD = "Sorry, you might want to secure \nyourself first with a password"
-MESSAGE_LOGIN_ERROR_EQUAL = "Hey there, please be more creative.\n differs your username and password okay?"
-MESSAGE_LOGIN_ERROR = "Sorry, we are not so sure what is happening now. \nPlease report this bug if you find it"
+MESSAGE_LOGIN_ERROR_EQUAL = "Hey there, please be more creative.\n Differ your username and password."
+MESSAGE_LOGIN_ERROR = "Sorry, we are not sure what is happening now. \nPlease report this bug if you find it."
 MESSAGE_LOGOUT = "Are you sure you want to logout?"
-MESSAGE_NO_COMPLETE_TASK = "There is no completed task yet"
+MESSAGE_NO_COMPLETE_TASK = "There is no completed task yet."
 
 TASK_STATUS_WEEK_COLOR = "YELLOW"
 TASK_STATUS_DAY_COLOR = "ORANGE"
