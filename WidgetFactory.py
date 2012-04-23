@@ -41,6 +41,8 @@ class MainTaskWidgetFactory(AbstractWidget):
 			return TaskListBoxWidget(parent,mediator)
 		elif widget == "TaskButton":
 			return TaskButtonWidget(parent,mediator)
+		elif widget == "UpdateButton":
+			return UpdateTaskWidget(parent,mediator)
 		elif widget == "SortButton":
 			return SortButtonWidget(parent,mediator)
 		elif widget == "MileStoneBox":
@@ -58,7 +60,7 @@ class CompleteTaskWidgetFactory(AbstractWidget):
 		if widget == "TaskListBox":
 			return TaskListBoxWidget(parent,mediator)
 		elif widget == "SortButton":
-			return SortButtonWidget(parent,mediator)
+			return SortCompleteButtonWidget(parent,mediator)
 		elif widget == "MileStoneBox":
 			return CompletedMileStoneBoxWidget(parent,mediator)
 		elif widget == "CloseButton":
@@ -236,72 +238,6 @@ class AddTaskDecisionWidget:
 		return self.mediator.response(self.command)
 	
 	def onPost(self, event):
-		self.command["type"] = "PostTask"
-		return self.mediator.response(self.command)
-
-	def onDelete(self, event):
-		self.command["type"] = "DeleteTask"
-		self.mediator.response(self.command)
-
-class AddTaskNameWidget:
-	def __init__(self,parent,mediator):
-		self.panel = wx.Panel(parent)
-		self.mediator = mediator
-
-		self.taskNameLabel = wx.StaticText(self.panel, wx.ID_ANY, label="Task Name")
-		self.taskNameBox = wx.TextCtrl(self.panel, wx.ID_ANY, size=(300,10))
-
-		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.sizer.Add(self.taskNameLabel, 0, flag=wx.ALL|wx.EXPAND, border=10)
-		self.sizer.Add(self.taskNameBox, 0, flag=wx.RIGHT|wx.EXPAND, border=10)
-
-		self.panel.SetSizer(self.sizer)
-
-	def setValue(self, name):
-		self.taskNameBox.SetValue(name)
-
-	def getValue(self):
-		return self.taskNameBox.GetValue()
-
-class AddTaskPriorityWidget:
-	def __init__(self,parent,mediator):
-		self.panel = wx.Panel(parent)
-		self.mediator = mediator
-
-		self.priority = wx.StaticBox(self.panel, wx.ID_ANY, label="Task Priority")
-		self.command["type"] = "PostTask"
-		return self.mediator.response(self.command)
-
-	def onDelete(self, event):
-		self.command["type"] = "DeleteTask"
-		self.mediator.response(self.command)
-
-class AddTaskNameWidget:
-	def __init__(self,parent,mediator):
-		self.panel = wx.Panel(parent)
-		self.mediator = mediator
-
-		self.taskNameLabel = wx.StaticText(self.panel, wx.ID_ANY, label="Task Name")
-		self.taskNameBox = wx.TextCtrl(self.panel, wx.ID_ANY, size=(300,10))
-
-		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.sizer.Add(self.taskNameLabel, 0, flag=wx.ALL|wx.EXPAND, border=10)
-		self.sizer.Add(self.taskNameBox, 0, flag=wx.RIGHT|wx.EXPAND, border=10)
-
-		self.panel.SetSizer(self.sizer)
-
-	def setValue(self, name):
-		self.taskNameBox.SetValue(name)
-
-	def getValue(self):
-		return self.taskNameBox.GetValue()
-
-class AddTaskPriorityWidget:
-	def __init__(self,parent,mediator):
-		self.panel = wx.Panel(parent)
-		self.mediator = mediator
-
-		self.priority = wx.StaticBox(self.panel, wx.ID_ANY, label="Task Priority")
 		self.command["type"] = "PostTask"
 		return self.mediator.response(self.command)
 
@@ -697,20 +633,17 @@ class TaskButtonWidget:
 		self.addTask = wx.Button(self.panel, wx.ID_ANY, "Add Task")
 		self.removeTask = wx.Button(self.panel, wx.ID_ANY, "Remove Task")
 		self.editTask = wx.Button(self.panel, wx.ID_ANY, "Edit Task")
-		self.updateTask = wx.Button(self.panel, wx.ID_ANY, "Update Task")
 		self.copyTask = wx.Button(self.panel, wx.ID_ANY, "Copy Task")
 		
 		#event binding
 		self.addTask.Bind (wx.EVT_BUTTON, self.onAddTask)
 		self.removeTask.Bind (wx.EVT_BUTTON, self.onRemoveTask)
 		self.editTask.Bind (wx.EVT_BUTTON, self.onEditTask)
-		self.updateTask.Bind (wx.EVT_BUTTON, self.onUpdateTask)
 		self.copyTask.Bind (wx.EVT_BUTTON, self.onCopyTask)
 		
 		self.taskButtonSizer = wx.BoxSizer(wx.VERTICAL)
 		self.taskButtonSizer.Add(self.addTask, 0, flag=wx.ALL|wx.EXPAND, border=5) 
 		self.taskButtonSizer.Add(self.editTask, 0, flag=wx.ALL|wx.EXPAND, border=5) 
-		self.taskButtonSizer.Add(self.updateTask, 0, flag=wx.ALL|wx.EXPAND, border=5) 
 		self.taskButtonSizer.Add(self.copyTask, 0, flag=wx.ALL|wx.EXPAND, border=5) 
 		self.taskButtonSizer.Add(self.removeTask, 0, flag=wx.ALL|wx.EXPAND, border=5) 
 
@@ -728,12 +661,28 @@ class TaskButtonWidget:
 		self.command["type"]="EditTask"
 		self.mediator.response(self.command)
 
-	def onUpdateTask(self, event):
-		self.command["type"]="UpdateTask"
-		self.mediator.response(self.command)
-
 	def onCopyTask(self, event):
 		self.command["type"]="CopyTask"
+		self.mediator.response(self.command)
+
+class UpdateTaskWidget:
+	def __init__(self,parent,mediator):
+		self.panel = wx.Panel(parent)
+		self.mediator = mediator
+		self.command = dict()
+		
+		self.updateTask = wx.Button(self.panel, wx.ID_ANY, "Update Task")
+
+		#event binding
+		self.updateTask.Bind (wx.EVT_BUTTON, self.onUpdateTask)
+		
+		self.sizer = wx.BoxSizer(wx.VERTICAL)
+		self.sizer.Add(self.updateTask, 0, flag=wx.ALL|wx.RIGHT, border=2)
+
+		self.panel.SetSizer(self.sizer)
+
+	def onUpdateTask(self, event):
+		self.command["type"]="UpdateTask"
 		self.mediator.response(self.command)
 
 class SortButtonWidget:
@@ -788,6 +737,57 @@ class SortButtonWidget:
 	def onProgressSort(self, event):
 		self.command["type"]="TaskSort"
 		self.command["field"]="ProgressSort"
+		self.mediator.response(self.command)
+
+	def onNameSort(self, event):
+		self.command["type"]="TaskSort"
+		self.command["field"]="NameSort"
+		self.mediator.response(self.command)
+
+class SortCompleteButtonWidget:
+	def __init__(self,parent,mediator):
+		self.panel = wx.Panel(parent)
+		self.mediator = mediator
+		self.command = dict()
+
+		self.postDateSort = wx.Button(self.panel, wx.ID_ANY, "Post date")
+		self.dueDateSort = wx.Button(self.panel, wx.ID_ANY, "Due date")
+		self.prioritySort = wx.Button(self.panel, wx.ID_ANY, "Priority")
+		self.nameSort = wx.Button(self.panel, wx.ID_ANY, "Name")
+
+		#event binding
+		self.postDateSort.Bind (wx.EVT_BUTTON, self.onPostDateSort)
+		self.dueDateSort.Bind (wx.EVT_BUTTON, self.onDueDateSort)
+		self.prioritySort.Bind (wx.EVT_BUTTON, self.onPrioritySort)
+		self.nameSort.Bind (wx.EVT_BUTTON, self.onNameSort)
+
+		#putting to the sizer
+		self.sortText = wx.StaticText(self.panel, wx.ID_ANY, label="Sort task By Field", style=wx.TE_READONLY)	
+		self.sortButtonSizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.sortButtonSizer.Add(self.postDateSort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
+		self.sortButtonSizer.Add(self.dueDateSort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
+		self.sortButtonSizer.Add(self.prioritySort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
+		self.sortButtonSizer.Add(self.nameSort, 1, flag=wx.ALL|wx.EXPAND, border=5) 
+		
+		self.sizer = wx.BoxSizer(wx.VERTICAL)
+		self.sizer.Add(self.sortText, 0, flag=wx.ALL|wx.EXPAND, border=5)
+		self.sizer.Add(self.sortButtonSizer, 1, flag=wx.ALL|wx.EXPAND, border=5)
+
+		self.panel.SetSizer(self.sizer)
+
+	def onPostDateSort(self, event):
+		self.command["type"]="TaskSort"
+		self.command["field"]="PostDateSort"
+		self.mediator.response(self.command)
+	
+	def onDueDateSort(self, event):
+		self.command["type"]="TaskSort"
+		self.command["field"]="DueDateSort"
+		self.mediator.response(self.command)
+
+	def onPrioritySort(self, event):
+		self.command["type"]="TaskSort"
+		self.command["field"]="PrioritySort"
 		self.mediator.response(self.command)
 
 	def onNameSort(self, event):

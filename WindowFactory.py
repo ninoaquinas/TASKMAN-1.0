@@ -28,11 +28,6 @@ class TodoListWindowFactory(WindowFactory):
 		else:
 			return None
 
-class ChatWindowFactory(WindowFactory):
-	@staticmethod
-	def GetMainWindow(parent):
-		return ChatMainWindow(parent)
-
 class WelcomeMainWindow:
 	def __init__(self,parent):
 		self.panel = wx.Panel(parent)
@@ -83,11 +78,14 @@ class MainTaskWindow:
 		self.taskButtonWidget = widgetFactory.getWidget("TaskButton",self.panel,Mediator)
 		self.sortButtonWidget = widgetFactory.getWidget("SortButton",self.panel,Mediator)
 		self.mileStoneBoxWidget = widgetFactory.getWidget("MileStoneBox",self.panel,Mediator)
+		self.updateButtonWidget = widgetFactory.getWidget("UpdateButton",self.panel,Mediator)
 		self.completeButtonWidget = widgetFactory.getWidget("CompleteTask",self.panel,Mediator)
 		self.logoutButtonWidget = widgetFactory.getWidget("Logout",self.panel,Mediator)
 
 		panel_h.Add(self.taskListBoxWidget.panel, 4, flag=wx.ALL|wx.EXPAND, border=5)
 		panel_h.Add(self.taskButtonWidget.panel, 1, flag=wx.ALL|wx.EXPAND, border=5)
+		panel_h2.Add(self.updateButtonWidget.panel, 0, flag=wx.ALL|wx.EXPAND, border=5)
+		panel_h2.Add((0,0), 1, flag=wx.ALL|wx.EXPAND, border=5)
 		panel_h2.Add(self.completeButtonWidget.panel, 0, flag=wx.ALL|wx.EXPAND, border=5)
 		panel_h2.Add(self.logoutButtonWidget.panel, 0, flag=wx.ALL|wx.EXPAND|wx.RIGHT, border=5)
 		panel_v.Add(panel_h, 1, flag=wx.ALL|wx.EXPAND, border=5)
@@ -114,7 +112,7 @@ class CompleteTaskWindow:
 		self.parent = parent
 		self.data = dict()
 		self.dataHandler = None	
-		self.windowName = parent.username + "'s Complete Task"
+		self.windowName = parent.username + "'s Completed Task"
 
 		panel_v = wx.BoxSizer(wx.VERTICAL)
 

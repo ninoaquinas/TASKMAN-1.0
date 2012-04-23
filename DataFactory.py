@@ -36,6 +36,7 @@ class DataHolder:
 		taskData[TASK_DUEDATE] = TemplateDate.initDueDate()
 		taskData[TASK_MILESTONE] = list()
 		taskData[TASK_USER_CATEGORY] = data[username][TASK_USER_CATEGORY]
+		taskData[TASK_STATUS] = TemplateDate.getStatus(taskData[TASK_DUEDATE])
 		return taskData
 
 	def initUserData(self,data,username):

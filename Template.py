@@ -30,13 +30,13 @@ class TemplatePopulateTask(TemplatePopulate):
 			if( item[TASK_STATUS] == TASK_STATUS_NORMAL):
 				pass
 			elif( item[TASK_STATUS] == TASK_STATUS_WEEK):
-				box.SetItemBackgroundColor(row, TASK_STATUS_WEEK_COLOR)
+				box.SetItemBackgroundColour(row, TASK_STATUS_WEEK_COLOR)
 			elif( item[TASK_STATUS] == TASK_STATUS_DAY):
-				box.SetItemBackgroundColor(row, TASK_STATUS_DAY_COLOR)
+				box.SetItemBackgroundColour(row, TASK_STATUS_DAY_COLOR)
 			elif( item[TASK_STATUS] == TASK_STATUS_HOUR):
-				box.SetItemBackgroundColor(row, TASK_STATUS_HOUR_COLOR)
+				box.SetItemBackgroundColour(row, TASK_STATUS_HOUR_COLOR)
 			elif( item[TASK_STATUS] == TASK_STATUS_OVERDUE):
-				box.SetItemBackgroundColor(row, TASK_STATUS_OVERDUE_COLOR)
+				box.SetItemBackgroundColour(row, TASK_STATUS_OVERDUE_COLOR)
 			else:
 				pass
 			
@@ -178,6 +178,21 @@ class TemplateDate:
 			return True
 		else:
 			return False
+
+	@staticmethod
+	def getStatus(date1):
+		date = date1
+		now = TemplateDate.now()
+		if (TemplateDate.compareDate(date,now,TASK_STATUS_WEEK_CRITERIA)):
+			return TASK_STATUS_NORMAL
+		elif (TemplateDate.compareDate(date,now,TASK_STATUS_DAY_CRITERIA)):
+			return TASK_STATUS_WEEK
+		elif (TemplateDate.compareDate(date,now,TASK_STATUS_HOUR_CRITERIA)):
+			return TASK_STATUS_DAY
+		elif (TemplateDate.compareDate(date,now,0)):
+			return TASK_STATUS_HOUR
+		else:
+			return TASK_STATUS_OVERDUE
 
 class Template:
 	@staticmethod

@@ -206,12 +206,19 @@ class MainTaskMediator(AbstractMediator):
 					main.data[USER_DATA][command["index"]][TASK_FINISHDATE] = TemplateDate.now()
 					main.data[TASK_DONE].append(main.data[USER_DATA][command["index"]])
 					del(main.data[USER_DATA][command["index"]])
+			command["type"] = "RefreshTask"
+			self.response(command)
 			command["type"] = "SaveAll"
 			command["data"] = main.data
 			self.__global.response(command)	
 			main.taskListBoxWidget.setSelect(command["index"])
 			command["type"] = "TaskSelect"
 			self.response(command)
+		elif command["type"] == "RefreshTask":
+			if(len(main.data[USER_DATA]) == 0):
+				return
+			for i in range(len(main.data[USER_DATA])):
+				main.data[USER_DATA][i][TASK_STATUS] = TemplateDate.getStatus(main.data[USER_DATA][i][TASK_DUEDATE])
 		elif command["type"] == "TaskSelect":
 			if(len(main.data[USER_DATA]) <= command["index"]):
 				return
@@ -283,6 +290,7 @@ class AddTaskMediator(AbstractMediator):
 			data[TASK_CATEGORY] = main.categoryWidget.getValue()
 			data[TASK_MILESTONE] = main.milestoneBoxWidget.getValue()
 			data[TASK_PROGRESS] = Template.getProgress(data[TASK_MILESTONE])
+			data[TASK_STATUS] = TemplateDate.getStatus(data[TASK_DUEDATE])
 			command["data"] = data
 			command["type"] = "ValidateTask"
 			self.__global.response(command)
